@@ -6,7 +6,6 @@ return (
   <BrowserRouter basename='/'>
       <Routes>
           <Route path="/" element={<Home/>}></Route>
-          {/* <Route path="/construction" element={<Construction/>}></Route> */}
       </Routes>
   </BrowserRouter>
 )
