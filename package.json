@@ -9,6 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview"
   },
+  "proxy":"http://localhost:4000",
   "dependencies": {
     "@tanstack/react-query": "^5.80.7",
     "axios": "^1.10.0",
