@@ -1,4 +1,65 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap");
+
 *{
     margin: 0;
     padding: 0;
+    --nvem-blue:rgba(20,132,205,255);
+    --nvem-green:rgba(190,207,188,255);
+}
+
+
+.landing-page-text{
+    width:60%;
+    margin: 0 auto;
+    margin-top: 2.5%;
+    border:2px solid black;
+    font-family: "Roboto Mono", monospace;
+    text-align: center;
+}
+
+.landing-page-text  ::selection{
+    background: var(--nvem-green);
+}
+
+.landing-page-text h3{
+    font-size: 26px;
+    margin-bottom: 2%;
+}
+
+.landing-page-text p{
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 2.5%;
+}
+
+.latest-course-video-area{
+    width:75%;
+    margin: 0 auto;
+    margin-top: 2.5%;
+    border:2px solid black;
+    font-family: "Roboto Mono", monospace;
+    text-align: center;
+}
+
+.latest-course-video-area  ::selection{
+    background: var(--nvem-green);
+}
+
+.latest-course-video-area h3{
+    font-size:32px;
+    margin-bottom: 2%;
+}
+
+.latest-course-video-area .img-holder{
+    width:70%;
+    min-width: 350px;
+    height:350px;
+    min-height: 350px;
+    margin: 0 auto;
+    margin-bottom: 2.5%;
+}
+
+.img-holder img{
+    width:100%;
+    height:100%;
 }

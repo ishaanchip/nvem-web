@@ -6,7 +6,6 @@ import "./CourseCatalog.css"
 
 //intercomponent imports
 
-
 //external dependenices
 
 const CourseCatalog = () => {
