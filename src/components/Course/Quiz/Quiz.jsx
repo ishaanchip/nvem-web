@@ -25,8 +25,22 @@ const Quiz = () => {
         let accountEmail = localStorage.getItem('the_current_user');
 
 
-    //1. quiz answers in state
-        const [currentSelections, setCurrentSelections] = useState(["", "", "", "", "", "", ""])
+    //1. quiz rendering and selection relation functionality
+
+        const {data: quizData, isFetched: quizDataFetched} = useQuery({
+            queryKey:['quiz-course-data'],
+            queryFn:async() => fetchNvemCourse(course_name, 'content'),
+            staleTime:0
+        })
+        const [currentSelections, setCurrentSelections] = useState(["", "", "", "", ""])
+        const [completeQuizData, setCompleteQuizData] = useState([]);
+
+        useEffect(() =>{
+            if (quizData){
+                console.log(quizData)
+                setCompleteQuizData(quizData.question_bank)
+            }
+        }, [quizData])
 
 
 
@@ -91,23 +105,30 @@ const Quiz = () => {
             </div>
         </div>
         <div className="quiz-area">
-            <div className="quiz-question">
-                <h3>1. What is the first question?</h3>
-                <div className="quiz-choices">
-                    <div className="quiz-choice">
-                        <p>This is the first choice</p>
+            {
+                completeQuizData.map((quizQuestion, i) =>(
+
+                    <div className="quiz-question">
+                        <div className="quiz-content">
+                            <h3 style={{fontSize:wordSize.h3}}>{i+1}. {quizQuestion?.question}</h3>
+                            <div className="quiz-choices">
+                                {quizQuestion.answer_choices.map((choices) =>(
+                                    <div className="quiz-choice">
+                                        <p style={{fontSize:wordSize.p}}>{choices}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                        <div className="quiz-explanation">
+                            <h3 style={{fontSize:wordSize.h3}}>Question Explanation</h3>
+                            <p style={{fontSize:wordSize.p}}>{quizQuestion.explanation}</p>
+                        </div>
+
+                        
                     </div>
-                    <div className="quiz-choice">
-                        <p>This is the second choice</p>
-                    </div>
-                    <div className="quiz-choice">
-                        <p>This is the third choice</p>
-                    </div>
-                    <div className="quiz-choice">
-                        <p>This is the fourth choice</p>
-                    </div>
-                </div>
-            </div>
+
+                ))
+            }
         </div>
 
         <div className="navigation-area">
