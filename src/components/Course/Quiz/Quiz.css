@@ -1,0 +1,35 @@
+.quiz-area{
+    margin-left: 12.5%;
+    width:90%;
+    margin-top:3%;
+    font-family: "Domine", serif;
+}
+
+.quiz-question{
+    width:60%;
+    height:400px;
+    background-color: rgba(221, 220, 220, 0.6);
+    border:1px solid gray;
+    box-shadow: 10px 10px 0px black;
+    border-radius: 20px;
+    padding:1%;
+}
+
+.quiz-choices{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin-left: 2%;
+    margin-top:2.5%;
+    height:80%;
+}
+
+.quiz-choice{
+    width:80%;
+    height:20%;
+    padding:1%;
+    background-color: rgba(241, 240, 240, 0.8);
+    border:2px solid black;
+    border-radius: 20px;
+
+}

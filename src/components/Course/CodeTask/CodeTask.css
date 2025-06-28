@@ -1,0 +1,45 @@
+@import url("https://fonts.googleapis.com/css2?family=Domine:wght@400..700&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap");
+
+.code-area{
+    width:90%;
+    margin: 0 auto;
+    margin-top:3%;
+    font-family: "Roboto Mono", monospace;
+}
+
+.code-area .example{
+    width:50%;
+    min-height:100px;
+    background-color: rgba(221, 220, 220, 0.6);
+    border:1px solid gray;
+    box-shadow: 5px 5px 0px black;
+    border-radius: 20px;
+    padding:1%;
+    margin-bottom: 2.5%;
+    transition: 0.4s;
+}
+
+.example .example-description{
+    display: flex;
+}
+
+.example-description h3{
+    width:75%;
+}
+
+.example-description button{
+    margin: 0 auto;
+    width:25%;
+    border:2px solid black;
+    padding:1%;
+}
+
+.code-area .example h3, .code-area .example p, .code-area .example button{
+    transition: 0.4s;
+}
+
+
+
+.output-area{
+    display: flex;
+}

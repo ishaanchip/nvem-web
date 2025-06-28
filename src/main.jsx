@@ -20,12 +20,12 @@ if (!PUBLISHABLE_KEY) {
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
  <React.StrictMode>
-     <Provider>
-     <QueryClientProvider client={queryClient}>
-     <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl='/'>
-        <App />
-       </ClerkProvider>
-     </QueryClientProvider>
-     </Provider>
+      <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl='/'>
+      <Provider>
+        <QueryClientProvider client={queryClient}>
+            <App />
+        </QueryClientProvider>
+      </Provider>
+    </ClerkProvider>
  </React.StrictMode>
 );

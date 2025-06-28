@@ -16,7 +16,7 @@ import axios from "axios";
     export const createNvemAccount = async(firstName, lastName, email)=>{
         try{
             let postData = {firstName:firstName, lastName:lastName, email:email}
-            const result = await axios.post(`${import.meta.env.VITE_API_URL}create-nvem-account`, postData)
+            const result = await axios.post(`${import.meta.env.VITE_API_URL}account/create-nvem-account`, postData)
             if (result.data.success === true){
                 console.log('creating || logging into account was a sucess!');
             }

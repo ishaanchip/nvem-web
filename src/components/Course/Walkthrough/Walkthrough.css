@@ -1,0 +1,16 @@
+.video-watch-area{
+    width:80%;
+    height:75vh;
+    margin: 0 auto;
+    margin-top: 2.5%;
+}
+
+
+.video-watch-area iframe{
+    width:100%;
+    height:100%;
+  }
+
+
+
+

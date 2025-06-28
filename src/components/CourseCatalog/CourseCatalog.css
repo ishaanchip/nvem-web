@@ -1,0 +1,196 @@
+@import url("https://fonts.googleapis.com/css2?family=Domine:wght@400..700&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap");
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+
+.course-catalog-shell{
+    width:100vw;
+    height:100vh;
+    overflow-x: hidden;
+    background-color: rgba(17, 16, 16, 0.9);
+    overflow-y: hidden;
+}
+
+
+
+
+.course-selection{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    height:80%;
+    max-height:700px;
+    width:85vw;
+    margin:0 auto;
+    margin-top: 2%;
+
+}
+
+.recent-course{
+    display: flex;
+    width:55%;
+    height:70%;
+    margin-top:7.5%;
+    text-decoration: none;
+    color:black;
+}
+
+
+
+.cover-image-area{
+    display: flex;
+    width:60%;
+    height:100%;
+}
+
+
+
+.cover-image-area img{
+    background-size: cover;
+    width:100%;
+    height:100%;
+    
+}
+
+.summary-text{
+    width:40%;
+    height:100%;
+    font-family: "Domine", serif;
+    background-color: rgb(236, 234, 234);
+    
+}
+
+.summary-text .info-tag{
+    margin:0 auto;
+    width: 100%;
+    height: 7.5%;
+    color:white;
+    background-color: rgba(87, 118, 190, 0.8);
+    clip-path: polygon(0 0%, 100% 0%, 80% 100%, 20% 100%);
+    text-align: center;
+    font-family: "Roboto Mono", monospace;
+}
+
+.summary-text .data{
+    padding:5%;
+
+}
+.summary-text .data .course-title{
+    margin-bottom: 2%;
+    font-size: 24px;
+    transition: 0.4s;
+}
+
+.summary-text .data .course-description{
+    line-height: 2;
+    font-size: 14px;
+    transition: 0.4s;
+}
+
+
+.summary-text .data .metadata{
+    margin-top: 2%;
+    font-size: 12px;
+    font-family: "Roboto Mono", monospace;
+    transition: 0.4s;
+}
+
+
+.waitlist-area{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border:2px solid white;
+    min-width: 200px;
+    width:30%;
+    height:70%;
+    margin-top:7.5%;
+    padding:2%;
+    background-color: whitesmoke;
+    box-shadow: 20px 20px 0px rgba(73, 163, 91, 0.8);
+}
+
+.waitlist-area h1{
+    height:10%;
+    text-align: center;
+    font-size: 32px;
+    font-family: "Domine", serif;
+}
+
+.waitlist-area p{
+    margin-top: 5%;
+    height:70%;
+    font-family: "Domine", serif;
+    font-size: 18px;
+    line-height: 2;
+}
+
+.waitlist-area .join-button{
+    background-color: rgb(73, 163, 91);
+}
+
+.waitlist-area .display-button{
+    background-color: white;
+    color:rgb(73, 163, 91);
+    border: 1px solid rgb(210, 210, 210);
+}
+
+
+
+
+
+
+@media only screen and (max-width:1250px) {
+    .recent-course{
+        margin: 0 auto;
+        margin-top: 2.5%;
+        width:95%;
+        height:70%;
+    }
+    .waitlist-area{
+        display: none;
+    }
+
+
+}
+
+@media only screen and (max-width: 800px){
+    .summary-text .info-tag p{
+        font-size:14px;
+    }
+    .summary-text .data .course-title{
+        font-size: 20px;
+    }
+    
+    .summary-text .data .course-description{
+        line-height: 1.5;
+        font-size: 12px;
+    }
+    
+    .summary-text .data .metadata{
+        margin-top: 3%;
+        font-size: 10px;
+    }
+
+
+
+}
+
+@media only screen and (max-width:400px){
+    .summary-text .data .course-title{
+        font-size: 16px;
+    }
+    
+    .summary-text .data .course-description{
+        line-height: 1.5;
+        font-size: 8px;
+    }
+    
+    .summary-text .data .metadata{
+        margin-top: 3%;
+        font-size: 7px;
+    }
+}

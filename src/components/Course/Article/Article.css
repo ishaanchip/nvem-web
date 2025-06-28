@@ -1,0 +1,70 @@
+@import url("https://fonts.googleapis.com/css2?family=Domine:wght@400..700&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap");
+
+.article-area{
+    display: flex;
+    margin-left: 12.5%;
+    width:90%;
+    margin-top:3%;
+    font-family: "Domine", serif;
+}
+
+.article-content{
+    width:50%;
+    margin-bottom: 1.5%;
+}
+
+.article-area .article-content h1{
+    /* font-size: 32px; */
+    width:80%;
+    margin-top: 5%;
+    margin-bottom:2.5%;
+    color:black;
+    transition: 0.4s;
+}
+
+
+
+.article-area .article-content p{
+    /* font-size: 16px; */
+    line-height:2.5;
+    color:black;
+    transition: 0.4s;
+}
+
+.sentence{
+    transition: 0.4s;
+}
+
+.sentence:hover{
+    cursor: default;
+    color:gray;
+}
+
+.highlight{
+    background-color:rgba(150, 150, 150, 0.2);
+    padding:1% 0%;
+    cursor:default;
+}
+
+.paragraph-buffer{
+    margin-bottom: 2.5%;
+}
+
+.reference-area{
+    margin-top: 10%;
+}
+
+.reference-area h3{
+    color:black;
+    transition: 0.4s;
+}
+
+.reference-area p{
+    text-indent: -2.5%;
+    padding-left: 2.5%;
+    /* font-size: 8px; */
+    line-height: 2;
+    transition: 0.4s;
+}
+
+

@@ -10,6 +10,7 @@ import "./Header.css"
 
 //external dependenices
 import { SignedIn, SignedOut, SignInButton, SignUpButton, SignOutButton, useUser as clerkUseUser, useClerk } from "@clerk/clerk-react";
+import { Link } from 'react-router-dom';
 
 
 const Header = () => {
@@ -25,7 +26,7 @@ const Header = () => {
   return (
     <div className='header-area'>
         <div className="logo-area">
-          <h1>NVEM</h1>
+          <Link to="/"><h1>NVEM</h1></Link>
         </div>
 
         <div className="nav-area">

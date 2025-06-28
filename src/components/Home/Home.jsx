@@ -13,6 +13,7 @@ import { getYoutubeVideo } from '../generalHelper/youtubeAPI';
 //external dependenices
 import { SignedIn, SignedOut, SignInButton, SignUpButton, SignOutButton, useUser as clerkUseUser } from "@clerk/clerk-react";
 import { useQuery } from '@tanstack/react-query';
+import { Link } from 'react-router-dom';
 
 
 const Home = () => {
@@ -28,7 +29,7 @@ const Home = () => {
         }
     }, [isSignedIn])
 
-  //2. fetching youtube data for mini course suggestor || link to course
+  //2. fetching youtube data for mini course suggestor [link to course]
       let currentVideoId = suggestedVideoData.videoId
       const [displayImg, setDisplayImg] = useState({})
   
@@ -56,7 +57,7 @@ const Home = () => {
           <h3>Check out our Latest Lesson</h3>
           <div className="img-holder">
             {
-              isSignedIn ? <img src={displayImg.url} />:  <MiniCourse currentVideoId={currentVideoId}></MiniCourse>
+              isSignedIn ? <Link to="/course-catalog"><img src={displayImg.url} /></Link>:  <MiniCourse currentVideoId={currentVideoId}></MiniCourse>
             }
 
           </div>
