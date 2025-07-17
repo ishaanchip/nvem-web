@@ -11,7 +11,7 @@ import { getYoutubeVideo } from '../generalHelper/youtubeAPI';
 
 
 //external dependenices
-import { SignedIn, SignedOut, SignInButton, SignUpButton, SignOutButton, useUser as clerkUseUser } from "@clerk/clerk-react";
+import {  useUser as clerkUseUser } from "@clerk/clerk-react";
 import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 
@@ -19,13 +19,11 @@ import { Link } from 'react-router-dom';
 const Home = () => {
   //1.creating logging into account func
     //clerk status
-    const [userEmail, setUserEmail] = useState(null)
     const {user, isSignedIn} = clerkUseUser()
     useEffect(()=>{
         if (isSignedIn){
             createNvemAccount(user.firstName, user.lastName, user.emailAddresses[0].emailAddress)
             localStorage.setItem("the_current_user", user.emailAddresses[0].emailAddress)
-            setUserEmail(user.emailAddresses[0].emailAddress)
         }
     }, [isSignedIn])
 

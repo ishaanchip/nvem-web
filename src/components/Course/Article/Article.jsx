@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useRef, useEffect} from 'react'
 import ".././Course.css"
 import "./Article.css"
 
@@ -20,14 +20,22 @@ import { ArrowUpIcon, ArrowDownIcon, ChevronLeftIcon, ChevronRightIcon } from '@
 
 
 const Article = () => {
-
+    
+   //essential information
    const {course_name} = useParams(); 
    let accountEmail = localStorage.getItem('the_current_user');
 
 
+   //0. scrolling to top of article on load
+    useEffect(() =>{
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }, [])
 
 
-   //0. fetch backend data concerning course
+   //1. fetch backend data concerning course
         const [articleContent, setArticleContent] = useState([]);
         let articleInfo = [];
         const {data: article, isFetched: articleFetched, isLoading, refetch} = useQuery({
@@ -44,7 +52,8 @@ const Article = () => {
             }
         }, [article])
 
-    //1. highlighter functionality
+    //2. highlighter functionality
+        //2a. changes in frontend
         const [currentHiglights, setCurrentHighlights] = useState([]);
         const {data: highlightData} = useQuery({
             queryKey:['highlight-data'],
@@ -59,7 +68,7 @@ const Article = () => {
             }
           }, [highlightData])
 
-          //1b. updating highlight data in mongodb
+          //2b. updating highlight data in mongodb
           const handleHighlightChange = async(highlightCoordinates, highlightText) =>{
             let localHighlights = currentHiglights;
             let i = highlightCoordinates[0];
@@ -67,7 +76,6 @@ const Article = () => {
             let k = highlightCoordinates[2];
             let coordinateIndex = -1;
             for (let index = 0; index < localHighlights.length; index++){
-                console.log(localHighlights[index][0])
                 if (i == localHighlights[index][0][0] && j == localHighlights[index][0][1] && k == localHighlights[index][0][2]){
                     coordinateIndex = index;
                 }
@@ -119,15 +127,15 @@ const Article = () => {
 
 
   return (
-    <div className='walkthrough-shell'>
+    <div className='article-shell'>
         <Header />
-        <div className="title-area">
+        <div className="title-area" >
             <div className="article-data">
                 <h1>Article: {course_name}</h1>
-                <p className='intro-text'> {starterText.mini_description}</p>
+                <p className='intro-text' > {starterText.mini_description}</p>
                 <div className="feature-bar">
                     <div className='feature-component'>
-                        <p>07/01/25</p>
+                        <p >07/01/25</p>
                     </div>
                     <div className="feature-component" onClick={() => handleNavigateFontSize("inc")} >
                         <p style={wordSizeType == 2 ? {'color':'gray'} : {'color':'white'}}>A </p>
@@ -147,7 +155,7 @@ const Article = () => {
                     <Link to={`/quiz/${course_name}`} className="course-step"><p>Course Quiz</p></Link>
             </div>
         </div>
-        <div className="article-area">
+        <div className="article-area" >
 
             <div className="article-content">
             {
@@ -205,7 +213,7 @@ const Article = () => {
 
         </div>
 
-        <div className="navigation-area">
+        <div className="navigation-area" >
             <Link className="prev-nav" to={`/video-walkthrough/${course_name}`}>
                 <ChevronLeftIcon style={{maxWidth:'20px', color:'black'}}></ChevronLeftIcon>
                 <p>Step Back: Walkthrough Video</p>

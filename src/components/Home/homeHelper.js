@@ -1,18 +1,19 @@
 import axios from "axios";
 
-//MINI COURSE
+//TEMP VARIABLE: MINI COURSE YOUTUBE VIDEO [to be replaced with first actual video]
     export const suggestedVideoData = {
         videoId:"OmtkvAp2OL0"
     }
 
-//UI Helper
+//TEMP VARIABLE: HOME SCREEN TEXT
     export const nvemLandingText = {
         mainText:"Educating Tomorrow’s Innovators",
         subText:"NVEM works to empower youth through coding competitions, tech fundraisers, and upcoming AI-focused digital courses—bridging opportunity gaps and inspiring the next generation of creators and problem solvers."
     }
 
+
 //ROUTING
-    //initializes nvem account
+    //1. initializes nvem account
     export const createNvemAccount = async(firstName, lastName, email)=>{
         try{
             let postData = {firstName:firstName, lastName:lastName, email:email}

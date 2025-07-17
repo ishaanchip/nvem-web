@@ -1,5 +1,6 @@
-//changing font size
+//UI: changing font size
 export const navigateFontSize = (currentSize, direction) => {
+    //font levels by array: 3 levels; smallest [0], biggest[2]
     let fontSet = [
         {
             "h1":26,
@@ -35,6 +36,7 @@ export const navigateFontSize = (currentSize, direction) => {
     } 
 
 
+    //return object, size is integer of what level, fontSet is one object value in the array
     return {
         fontSet: fontSet[currentSize],
         size:currentSize,  

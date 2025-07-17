@@ -9,8 +9,7 @@ import "./CodeTask.css"
 import Header from '../../Header/Header.jsx'
 import CodingTerminal from './CodingTerminal/CodingTerminal'
 import { navigateFontSize } from '../courseHelper'
-import { fetchNvemAccount, fetchNvemCourse } from '../../generalHelper/simpleRoutes.js'
-import { starterText  } from './codeTaskHelper.js'
+import { fetchNvemCourse } from '../../generalHelper/simpleRoutes.js'
 
 
 //external dependenices
@@ -23,15 +22,21 @@ import { ArrowUpIcon, ArrowDownIcon, ChevronLeftIcon, ChevronRightIcon, ArrowTur
 
 const CodeTask = () => {
 
+   //essential information
    const {course_name} = useParams(); 
    let accountEmail = localStorage.getItem('the_current_user');
 
 
-
+   //0. scrolling to top of article on load
+    useEffect(() =>{
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }, [])
 
 
    //0. fetch backend data concerning course
-        const [codeTaskContent, setCodeTaskContent] = useState({});
         const [codingTaskHeader, setCodingTaskHeader] = useState('');
         const [codingTaskIntro, setCodingTaskIntro] = useState('');
         const [codingTaskExamples, setCodingTaskExamples] = useState([]);
@@ -44,7 +49,6 @@ const CodeTask = () => {
 
         useEffect(() =>{
             if (task){
-                setCodeTaskContent(task.coding_task)
                 setCodingTaskHeader(task.coding_task.header)
                 setCodingTaskIntro(task.coding_task.overview)
                 setCodingTaskExamples(task.coding_task.examples)

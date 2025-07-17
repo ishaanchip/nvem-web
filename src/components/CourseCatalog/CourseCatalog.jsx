@@ -47,7 +47,6 @@ const CourseCatalog = () => {
         }
 
       //2b. checking if account on waitlist
-
         const {data: waitlistData, isFetched: waitListDataFetched} = useQuery({
           queryKey:['waitlist-data'],
           queryFn:async() => fetchNvemCourse(WAITLIST_COURSE, 'waitlist'),

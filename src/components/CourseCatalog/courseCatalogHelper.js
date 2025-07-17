@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-//course information
+//TEMP VARIABLE: content of course to be displayed in choiceboard view [to be replaced by backend call of most recent course]
 export const recentCourseData = {
     name:"Introduction to AI",
     selection_data:{
@@ -48,11 +48,7 @@ export const recentCourseData = {
 }
 
 
-
-//FUNCTIONALITY 
-
-//ROUTES
-
+//ROUTING
     export const addAccountWaitlist = async (course_name, email) =>{
         try{
             let postData = {course_name:course_name, email:email}

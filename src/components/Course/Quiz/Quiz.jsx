@@ -7,6 +7,7 @@ import "./Quiz.css"
 
 //intercomponent imports
 import Header from '../../Header/Header.jsx'
+import QuizResults from './QuizResults'
 import { navigateFontSize } from '../courseHelper'
 import { fetchNvemAccount, fetchNvemCourse } from '../../generalHelper/simpleRoutes.js'
 import { starterText, numberToLetter  } from './quizHelper.js'
@@ -17,15 +18,23 @@ import { Link, useParams } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import { ArrowUpIcon, ArrowDownIcon, ChevronLeftIcon, ChevronRightIcon,  } from '@heroicons/react/24/solid'
 import { Button } from '@chakra-ui/react'
-import { toaster } from "../../ui/toaster"
 import { Alert, CloseButton } from '@chakra-ui/react'
 
 
 
 const Quiz = () => {
-    //0. fetch essential info
-        const {course_name} = useParams(); 
-        let accountEmail = localStorage.getItem('the_current_user');
+    //essential information
+    const {course_name} = useParams(); 
+    let accountEmail = localStorage.getItem('the_current_user');
+
+
+    //0. scrolling to top of article on load
+    useEffect(() =>{
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }, [])
 
 
     //1. quiz rendering and selection relation functionality
@@ -56,18 +65,38 @@ const Quiz = () => {
         const [currentSelectionString, setCurrentSelectionString] = useState(["", "", "", "", ""])
         const [currentSelectionInteger, setCurrentSelectionInteger] = useState([-1, -1, -1, -1, -1])
         const [validSubmission, setValidSubmission] = useState(false);
-        const [questionAttempted, setQuestionAttempted] = useState(false)
+        const [incompleteQuizSubmission, setIncompleteQuizSubmission] = useState(false);
+        const [quizSubmitted, setQuizSubmitted] = useState(false)
+
+
+        const handleQuizFullyAnswered = () =>{
+            const tempAnswerSheet = [...currentSelectionInteger].sort((a, b) => b - a).slice(0, currentSelectionInteger.length - 1)
+            for (let i = 0; i < tempAnswerSheet.length; i++){
+                if (tempAnswerSheet[i] == -1){
+                    setValidSubmission(false)
+                    return false
+                }
+            }
+            setValidSubmission(true)
+            return true;
+        }
+
         const handleQuestionSelection = (choice, index) =>{
-            setCurrentSelectionString(previousSelections => {
-                const tempSelection = [...previousSelections]
-                tempSelection[index] = choice;
-                return tempSelection
-            })
-            setCurrentSelectionInteger(previousSelections => {
-                const tempSelection = [...previousSelections]
-                tempSelection[index] = questionQuizData[index].indexOf(choice);
-                return tempSelection
-            })
+            //core variables for quiz status
+                let tempStringSelection = [];
+                let tempIntegerSelection = [];
+
+            //setting states to update changes
+                setCurrentSelectionString(previousSelections => {
+                    tempStringSelection = [...previousSelections]
+                    tempStringSelection[index] = choice;
+                    return tempStringSelection
+                })
+                setCurrentSelectionInteger(previousSelections => {
+                    tempIntegerSelection = [...previousSelections]
+                    tempIntegerSelection[index] = questionQuizData[index].indexOf(choice);
+                    return tempIntegerSelection
+                })
         }
 
         const handleQuestionScroll = (currentIndex) =>{
@@ -83,27 +112,38 @@ const Quiz = () => {
             }
         }
 
-        const handleQuizFullyAnswered = () =>{
-            for (let i = 0; i < currentSelectionInteger.length; i++){
-                if (currentSelectionInteger[i] == -1){
-                    setValidSubmission(false)
-                    setQuestionAttempted(true)
-                    return false
-                }
-            }
-            setValidSubmission(true)
-            return true;
-        }
 
-        const handleQuizResults = () =>{
-            let score = 0;
-            for (let i =0; i < currentSelectionString.length; i++){
-                if (currentSelectionString[i] === completeQuizData[i].correct_choice){
-                    score++;
+
+
+
+    //fetch past quiz attempt data
+    const {data: quizHistory, isFetching:quizHistoryFetching} = useQuery({
+        queryKey:['quiz-history-data'],
+        queryFn:async () => fetchNvemAccount(accountEmail, 'course_history'),
+        staleTime:0, 
+    })
+
+
+    useEffect(() =>{
+        if (quizHistory){
+            console.log(quizHistory)
+            if (quizHistory[0][course_name].quiz_attempts > 0){
+                console.log('made!')
+                let pastQuizChoices = quizHistory[0][course_name].quiz_history
+                setCurrentSelectionInteger(pastQuizChoices);
+                setIncompleteQuizSubmission(false)
+                for (let i = 0; i < currentSelectionString.length; i++){
+                    setCurrentSelectionString(previousSelections => {
+                        let tempStringSelection = [...previousSelections]
+                        tempStringSelection[i] = quizData?.question_bank[i].answer_choices[pastQuizChoices[i]];
+                        return tempStringSelection
+                    })
                 }
             }
-            return score;
+
+
         }
+    }, [quizHistory])
 
 
 
@@ -176,6 +216,8 @@ const Quiz = () => {
                     <div className="quiz-question" ref={questionViewRef.current[i]}>
                         <div className="quiz-content">
                             <h3 style={{fontSize:wordSize.h3}}>{i+1}. {quizQuestion?.question}</h3>
+                            {
+                            quizHistoryFetching === false && 
                             <div className="quiz-choices">
                                 {quizQuestion.answer_choices.map((choices) =>(
                                     <div className="quiz-choice" 
@@ -185,20 +227,29 @@ const Quiz = () => {
                                         : {}}
                                         onClick={() => {
                                             handleQuestionSelection(choices, i)
+                                            handleQuizFullyAnswered()
                                             if (i !== currentSelectionString.length - 1)
                                                 handleQuestionScroll(i)
-                                            }}
+                                            }
+                                        }
+                                            
                                         
                                     >
                                         <p style={{fontSize:wordSize.p}}>{choices}</p>
                                     </div>
                                 ))}
                             </div>
+                            }
                         </div>
+                        {
+                        quizSubmitted === true 
+                        && 
                         <div className="quiz-explanation">
                             <h3 style={{fontSize:wordSize.h3}}>Question Explanation</h3>
                             <p style={{fontSize:wordSize.p}}>{quizQuestion.explanation}</p>
                         </div>
+                        }
+
 
                         
                     </div>
@@ -217,23 +268,36 @@ const Quiz = () => {
                         ))
                     }
                 </div>
+
+                {
+                validSubmission
+                ?
+                <QuizResults 
+                    course_name={course_name}
+                    accountEmail={accountEmail}
+                    setQuizSubmitted={setQuizSubmitted} 
+                    completeQuizData={completeQuizData}
+                    currentSelectionInteger={currentSelectionInteger}
+                    currentSelectionString={currentSelectionString}
+                    setCurrentSelectionInteger={setCurrentSelectionInteger}
+                    setCurrentSelectionString={setCurrentSelectionString}
+                />
+                :
                 <Button 
-                    w="35%" m="2%" variant="outline" size="sm"className='button' 
-                    onClick={() => {
-                        if (handleQuizFullyAnswered() === true){
-                            console.log('complete!')
-                        }
-                    }}
+                    w="35%" m="2%" variant="outline" size="sm" className='button' 
+                    onClick={() => setIncompleteQuizSubmission(true)}
                 >
                     Submit Quiz
                 </Button>
+                }
+
                 
 
             </div>
 
         </div>
         {
-        (validSubmission === false && questionAttempted === true) &&
+        (incompleteQuizSubmission === true) &&
             <Alert.Root status="error" className='alert-tag'>
                 <Alert.Indicator />
                 <Alert.Content>
@@ -242,7 +306,7 @@ const Quiz = () => {
                     Answer all questions to submit!
                     </Alert.Description>
                 </Alert.Content>
-                <CloseButton pos="relative" top="0" insetEnd="0" onClick={() => setValidSubmission(true)}/>
+                <CloseButton pos="relative" top="0" insetEnd="0" onClick={() => setIncompleteQuizSubmission(false)}/>
             </Alert.Root>
         }
 

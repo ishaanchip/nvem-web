@@ -9,9 +9,9 @@ import {ChevronLeftIcon} from "@heroicons/react/24/solid"
 import { getYoutubeVideo } from '../../generalHelper/youtubeAPI'
 
 //external dependenices
-import { Heading, Button, CloseButton, Dialog, Portal} from "@chakra-ui/react"
+import { Heading, CloseButton, Dialog, Portal} from "@chakra-ui/react"
 import { useQuery } from '@tanstack/react-query'
-import { useClerk, SignUpButton } from '@clerk/clerk-react'
+import { useClerk } from '@clerk/clerk-react'
 
 
 const MiniCourse = ({currentVideoId}) => {
@@ -26,6 +26,7 @@ const MiniCourse = ({currentVideoId}) => {
     })
 
     useEffect(() =>{
+        //storing full youtube data object and img url on load
         if (youtubeData){
             setYoutubeVideo(youtubeData[0])
             setYoutubeImg(youtubeData[0].snippet.thumbnails.maxres)
@@ -33,13 +34,13 @@ const MiniCourse = ({currentVideoId}) => {
     }, [youtubeData])
 
     //2.sign up on click of any mini components
-    const [isOpen, setIsOpen] = useState(false)
-    const { openSignUp } = useClerk();
-  
-    const handleSignUpClick = () => {
-      setIsOpen(false); // close Chakra Dialog first
-      openSignUp(); // open Clerk modal
-    };
+      const [isOpen, setIsOpen] = useState(false)
+      const { openSignUp } = useClerk();
+    
+      const handleSignUpClick = () => {
+        setIsOpen(false); // close chakra dialog 
+        openSignUp(); // open clerk modal
+      };
 
 
 

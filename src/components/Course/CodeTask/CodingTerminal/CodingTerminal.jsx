@@ -33,7 +33,7 @@ const CodingTerminal = ({course_name, accountEmail, setCodeTaskProgress}) => {
 
         useEffect(() =>{
             if (code){
-                setUserCode(code[0].test_course.code_history)
+                setUserCode(code[0][course_name]['code_history'])
             }
         }, [code])
 

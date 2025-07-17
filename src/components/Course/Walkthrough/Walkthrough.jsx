@@ -19,7 +19,16 @@ import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid'
 
 const Walkthrough = () => {
 
+   //essential information
    const {course_name} = useParams(); 
+
+      //0. scrolling to top of article on load
+      useEffect(() =>{
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+          });
+       }, [])
 
    //1. fetch backend data concerning course
     const [videoId, setVideoId] = useState("");

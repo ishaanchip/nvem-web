@@ -1,11 +1,16 @@
 @import url("https://fonts.googleapis.com/css2?family=Domine:wght@400..700&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap");
 
+.article-shell{
+    overflow-x: hidden;
+}
+
 .article-area{
     display: flex;
     margin-left: 12.5%;
     width:90%;
     margin-top:3%;
     font-family: "Domine", serif;
+    overflow-x: hidden;
 }
 
 .article-content{
